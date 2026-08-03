@@ -1,6 +1,8 @@
 # Web App User Flow
 
-A screen-by-screen walkthrough of the Sovrant Web app (Blazor Server, `http://localhost:5100`), captured from a live run of version 1.4.0 in embedded mode with a fresh database. Every screenshot lives in [`docs/images/`](images/) with the `web-flow-` prefix.
+A screen-by-screen walkthrough of the Sovrant Web app (Blazor Server, `http://localhost:5100`), captured from a live run of version 1.4.0 (with the upstream `development` branch merged in, including the Phase 126 chat-UX work) in embedded mode with a fresh database. Every screenshot lives in [`docs/images/`](images/) with the `web-flow-` prefix.
+
+Each image is a side-by-side theme comparison at identical resolution: **dark mode on the left, light mode on the right**, each half captured at 1440×900 (2880×900 combined). The theme is toggled live via the same mechanism as the Settings → Appearance → Dark Mode switch.
 
 The flow follows the order a new user encounters the product: first-run setup → chat home → the rail-nav sections (Dashboard, Knowledge, Agents, Projects) → settings and provider setup → the admin surfaces.
 
@@ -236,4 +238,4 @@ The trust-boundary view — what data and capabilities are exposed where, in lin
 
 ## How these were captured
 
-Screenshots were taken with Playwright/Chromium at 1440×900 against a debug build (`dotnet run --project src/Sovrant.Web`) with a fresh SQLite database: the script registers the first-run admin account through the real login form, then visits each route as that user. Re-running the capture on an existing database signs in instead of registering.
+Screenshots were taken with Playwright/Chromium at 1440×900 against a debug build (`dotnet run --project src/Sovrant.Web`) with a fresh SQLite database: the script registers the first-run admin account through the real login form, then visits each route as that user. On every screen it captures dark mode, switches the theme to light (the same `data-theme` mechanism the Settings toggle uses), captures again, and composites the two frames side-by-side with ImageMagick (`convert dark.png light.png +append`). Re-running the capture on an existing database signs in instead of registering.
