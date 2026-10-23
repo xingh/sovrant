@@ -1,8 +1,8 @@
 # Web App User Flow
 
-A screen-by-screen walkthrough of the Sovrant Web app (Blazor Server, `http://localhost:5100`), captured from a live run of version 1.4.0 in embedded mode with a fresh database. Every screenshot lives in [`docs/images/`](images/) with the `web-flow-` prefix.
+A screen-by-screen walkthrough of the Sovrant Web app (Blazor Server, `http://localhost:5100`), captured from a live run of version 2.1.0 in embedded mode with a fresh database and no provider configured. Each image shows dark mode on the left and light mode on the right (1440×900 each). All screenshots are in [`docs/images/`](images/) with the `web-flow-` prefix.
 
-The flow follows the order a new user encounters the product: first-run setup → chat home → the rail-nav sections (Dashboard, Knowledge, Agents, Projects) → settings and provider setup → the admin surfaces.
+The screens are in the order a new user meets them: first-run setup, Chat, Home, then the Knowledge, Agents and Projects sections, Settings and provider setup, and finally the Admin pages.
 
 ---
 
@@ -10,230 +10,182 @@ The flow follows the order a new user encounters the product: first-run setup �
 
 **Route:** `/login`
 
-On a fresh install no accounts exist, so the login page switches to first-time setup. The first account created becomes the administrator with full control over registration, approvals, and server settings. On subsequent visits this page shows the normal sign-in form (plus self-registration, if the admin has enabled it).
+On a fresh install no accounts exist, so the login page switches to first-time setup: the first account created becomes the administrator, with control over registration, approvals, providers and workspaces. After that, this page shows the normal sign-in form.
 
 ![Login — first-run setup](images/web-flow-01-login-first-run.png)
 
-## 2. Chat (home)
+## 2. Chat
 
 **Route:** `/`
 
-After registering, the user lands on Chat — the home screen. The empty state asks "What are you working on?" and offers starter prompts (create a custom agent, build a team, set up a mission, connect an MCP server). The left sidebar holds **+ New Chat** and conversation search; the top context bar exposes the model picker ("No model" until a provider is configured), workspace selector, project selector, and integrations menu. The composer includes a per-record **Private** toggle and a **+ Remember** control.
+The empty state asks "What are you working on?" and offers starter prompts (custom agent, research team, swarm, workflow, multi-agent pipeline, MCP server). Below them is a "What Sovrant can do" strip. The top bar has the model picker ("No model · Add a provider" until a provider exists), the workspace and project selectors, and the Integrations menu. The sidebar lists conversations, with search and folders. The composer has a **Private** toggle and a **+ Remember** control.
 
-![Chat home](images/web-flow-02-chat.png)
+![Chat](images/web-flow-02-chat.png)
 
-## 3. User Dashboard
+## 3. Home
 
-**Route:** `/dashboard` (rail nav: chart icon)
+**Route:** `/dashboard` (rail: Home; `/welcome` redirects here)
 
-Cross-workspace activity for the signed-in user: missions, team runs, agent runs, sessions, shared items, and Claws, with quick actions to start a chat or run an agent.
+"Welcome back" overview: activity counters, a role-aware "Set up Sovrant for your team" checklist (connect a model provider, enable providers for a workspace, add your team, connect an integration, create your first agent), and "What Sovrant can do" cards. The Activity tab shows cross-workspace activity.
 
-![User Dashboard](images/web-flow-03-dashboard.png)
+![Home](images/web-flow-03-dashboard.png)
 
 ## Knowledge section
 
-### 4. Memory
+### 4. Memory — `/memory`
 
-**Route:** `/memory`
-
-Per-user memory entries the agents can recall across sessions, with privacy scoping.
+Notes, patterns, incidents and summaries that agents recall across sessions. Each entry can be marked private.
 
 ![Memory](images/web-flow-04-memory.png)
 
-### 5. Documents
+### 5. Documents — `/documents`
 
-**Route:** `/documents`
-
-Document library for the current workspace — files agents can read, produce, and update.
+Built-in document templates (business, construction, education, …) with output formats; select one to view its details.
 
 ![Documents](images/web-flow-05-documents.png)
 
-### 6. Document Templates
+### 6. Document Templates — `/documents/templates`
 
-**Route:** `/documents/templates`
-
-Reusable document templates users can instantiate.
+User-defined document templates (**+ New** to create).
 
 ![Document Templates](images/web-flow-06-document-templates.png)
 
-### 7. Artifacts
+### 7. Artifacts — `/artifacts`
 
-**Route:** `/artifacts`
-
-Artifacts produced by agent runs (reports, files, outputs), browsable per workspace.
+Files produced by agent runs, grouped per run.
 
 ![Artifacts](images/web-flow-07-artifacts.png)
 
-### 8. Guidelines
+### 8. Code Templates — `/guidelines`
 
-**Route:** `/guidelines`
+Per-language coding conventions (.NET, C++, Go, Java, Kotlin, Python, Rust, …) that agents follow.
 
-Behavioral guidelines that steer agents (the CLAUDE.md-style instruction layer).
-
-![Guidelines](images/web-flow-08-guidelines.png)
+![Code Templates](images/web-flow-08-guidelines.png)
 
 ## Agents section
 
-### 9. Agents
+### 9. Library — `/agents`
 
-**Route:** `/agents`
-
-The 25 built-in agent templates (architect, coder, code-reviewer, data-analyst, …) in a master–detail layout showing each template's role, effort level, and tool grants, plus a **+ New** button for custom agents and a recent-runs strip.
+Built-in agent templates with their tier and tool set, plus recent agent runs.
 
 ![Agents](images/web-flow-09-agents.png)
 
-### 10. Skills
+### 10. Skills — `/skills`
 
-**Route:** `/skills`
-
-The 32 built-in skills agents can invoke, with search and detail view.
+The built-in skill catalog with agent and tool counts per skill.
 
 ![Skills](images/web-flow-10-skills.png)
 
-### 11. Tools
+### 11. Tools — `/tools`
 
-**Route:** `/tools`
-
-The 58 tools available to agents (file I/O, shell, web search, delegation, …), including enablement and permission info.
+Every built-in tool, with a description of each.
 
 ![Tools](images/web-flow-11-tools.png)
 
-### 12. Tool Templates
+### 12. Tool Templates — `/tools/templates`
 
-**Route:** `/tools/templates`
-
-User-defined tool templates.
+Tool templates (e.g. CodeCreate, CodeCreateMulti, CodeValidate).
 
 ![Tool Templates](images/web-flow-12-tool-templates.png)
 
-### 13. Orchestration
+### 13. Orchestration — `/orchestration`
 
-**Route:** `/orchestration`
-
-Teams, swarms, and missions — the multi-agent orchestration surfaces with per-team run profiles.
+Teams and their default run profiles.
 
 ![Orchestration](images/web-flow-13-orchestration.png)
 
-## Projects section
+### 14. Workflows — `/workflows`
 
-### 14. Projects
+Planned and scheduled workflows.
 
-**Route:** `/projects`
+![Workflows](images/web-flow-14-workflows.png)
 
-Projects within the current workspace; conversations and runs can be filed under a project via the top context bar.
+## Projects
 
-![Projects](images/web-flow-14-projects.png)
+### 15. Projects — `/projects`
 
-### 15. Workspaces
+Create and list projects.
 
-**Route:** `/workspaces`
+![Projects](images/web-flow-15-projects.png)
 
-The user's workspaces (a personal workspace is seeded on first login) and membership management.
+### 16. Workspaces — `/workspaces`
 
-![Workspaces](images/web-flow-15-workspaces.png)
+The user's workspaces (Personal by default), with a form to create a team workspace.
 
-### 16. Code
+![Workspaces](images/web-flow-16-workspaces.png)
 
-**Route:** `/code`
+### 17. Code Scaffolds — `/code`
 
-Code-focused view for repository-oriented sessions.
+Project scaffolds per stack (C++ CMake, Blazor Server, .NET Console/Web API/Worker, Go, Java, Node, …).
 
-![Code](images/web-flow-16-code.png)
+![Code Scaffolds](images/web-flow-17-code.png)
 
-## Settings & provider setup
+## Settings and provider setup
 
-### 17. Settings
+### 18. Settings — `/settings`
 
-**Route:** `/settings`
+Permission mode, dark/light theme, and sign-out (this browser or all browsers).
 
-Per-user preferences: appearance, defaults, and account controls (including sign-out).
+![Settings](images/web-flow-18-settings.png)
 
-![Settings](images/web-flow-17-settings.png)
+### 19. Provider setup — `/setup`
 
-### 18. Provider Setup
+"Welcome to Sovrant": pick a provider, enter an API key and base URL, then **Get Started**.
 
-**Route:** `/setup`
+![Provider setup](images/web-flow-19-provider-setup.png)
 
-Connect an LLM provider (API key + model) so chats and agent runs have a model to route to. Reachable from the "Set up →" link in the model picker; models can be switched anytime from the sidebar.
+## Admin
 
-![Provider Setup](images/web-flow-18-provider-setup.png)
+### 20. Command Center — `/command`
 
-## Admin section (admin role only)
+Live counts of workflows, team runs, agent runs, sessions and Claws, plus what is currently in flight.
 
-### 19. Command Center
+![Command Center](images/web-flow-20-command-center.png)
 
-**Route:** `/command`
+### 21. Users — `/admin`
 
-The live cockpit: missions, team runs, agent runs, sessions, and Claws currently in flight, auto-refreshing while runs are active.
+User list with role and status, plus tabs for Registration & sign-in and Password Reset.
 
-![Command Center](images/web-flow-19-command-center.png)
+![Users](images/web-flow-21-admin.png)
 
-### 20. Admin — Users
+### 22. Providers — `/admin/providers`
 
-**Route:** `/admin`
+Configured LLM providers and an Add Provider form, scoped to workspaces.
 
-User management with tabs for Users, Registration (open/closed, approval required), and Password Reset. The first-run admin account appears as active with the admin role.
+![Providers](images/web-flow-22-admin-providers.png)
 
-![Admin Users](images/web-flow-20-admin.png)
+### 23. Platform Integrations — `/admin/integrations`
 
-### 21. Admin — Providers
+MCP servers (connected and gallery), with import via JSON, stdio or HTTP.
 
-**Route:** `/admin/providers`
+![Platform Integrations](images/web-flow-23-admin-integrations.png)
 
-Server-wide LLM provider configuration.
+### 24. System Integrations — `/admin/system-integrations`
 
-![Admin Providers](images/web-flow-21-admin-providers.png)
+The active storage backend (SQLite by default) and optional PostgreSQL and Supabase connections.
 
-### 22. Admin — Integrations
+![System Integrations](images/web-flow-24-admin-system-integrations.png)
 
-**Route:** `/admin/integrations`
+### 25. Workspaces (admin) — `/admin/workspaces`
 
-Webhook/chat integrations (Slack, Teams, Discord, custom).
+All team workspaces and the personal-workspace defaults.
 
-![Admin Integrations](images/web-flow-22-admin-integrations.png)
+![Admin Workspaces](images/web-flow-25-admin-workspaces.png)
 
-### 23. Admin — System Integrations
+### 26. Governance — `/governance`
 
-**Route:** `/admin/system-integrations`
+Governance level, audit logging, file/shell permissions, blocked commands, protected files and secret-detection patterns.
 
-System-level integrations such as MCP servers and Claw runtimes.
+![Governance](images/web-flow-26-governance.png)
 
-![Admin System Integrations](images/web-flow-23-admin-system-integrations.png)
+### 27. Diagnostics — `/diagnostics`
 
-### 24. Admin — Workspaces
+System info, health checks (API key, database, artifacts directory, connectivity), provider health and paths.
 
-**Route:** `/admin/workspaces`
+![Diagnostics](images/web-flow-27-diagnostics.png)
 
-Administration across all workspaces on the server.
+### 28. Trust Boundary — `/trust-boundary`
 
-![Admin Workspaces](images/web-flow-24-admin-workspaces.png)
+Master switch, sanitizer mode, corporate domains, allow list, exempt providers, custom patterns and intent verification.
 
-### 25. Governance
-
-**Route:** `/governance`
-
-Governance controls: policies and limits that bound what agents may do.
-
-![Governance](images/web-flow-25-governance.png)
-
-### 26. Diagnostics
-
-**Route:** `/diagnostics`
-
-Runtime diagnostics: health, logs, and environment information.
-
-![Diagnostics](images/web-flow-26-diagnostics.png)
-
-### 27. Trust Boundary
-
-**Route:** `/trust-boundary`
-
-The trust-boundary view — what data and capabilities are exposed where, in line with the security architecture (see [security-architecture.md](security-architecture.md)).
-
-![Trust Boundary](images/web-flow-27-trust-boundary.png)
-
----
-
-## How these were captured
-
-Screenshots were taken with Playwright/Chromium at 1440×900 against a debug build (`dotnet run --project src/Sovrant.Web`) with a fresh SQLite database: the script registers the first-run admin account through the real login form, then visits each route as that user. Re-running the capture on an existing database signs in instead of registering.
+![Trust Boundary](images/web-flow-28-trust-boundary.png)
